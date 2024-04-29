@@ -32,18 +32,22 @@ def pendulum_simulator():
     theta1 = wrap_to_pi(theta1)
     theta2 = 0                  #velocidad
 
-    num_simulations = 2
+    num_simulations = 5
 
     theta1_v = [theta1]*num_simulations
     theta2_v = [theta2]*num_simulations
 
     rospy.init_node('pendulum_simulator')
-    rate = rospy.Rate(10)  # Publish rate of 10 Hz
+    rate = rospy.Rate(100)  # Publish rate of 10 Hz
 
     theta1_pub = rospy.Publisher('pendulum_theta1', Float64, queue_size=10)
     theta2_pub = rospy.Publisher('pendulum_theta2', Float64, queue_size=10)
+    theta3_pub = rospy.Publisher('pendulum_theta3', Float64, queue_size=10)
+    theta4_pub = rospy.Publisher('pendulum_theta4', Float64, queue_size=10)
+    theta5_pub = rospy.Publisher('pendulum_theta5', Float64, queue_size=10)
     time_pub = rospy.Publisher('/time', Time, queue_size=10)
 
+    rospy.sleep(15)
     max_time = 100
     dt = 0.1
     time = np.arange(0, max_time, dt)
@@ -55,6 +59,9 @@ def pendulum_simulator():
 
         theta1_pub.publish(theta1_v[0])
         theta2_pub.publish(theta1_v[1])
+        theta3_pub.publish(theta1_v[2])
+        theta4_pub.publish(theta1_v[3])
+        theta5_pub.publish(theta1_v[4])
 
         # rospy.loginfo(time_msg)
 
