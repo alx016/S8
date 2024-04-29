@@ -1,2 +1,0 @@
-pendulumControl
--DCATKIN_DEVEL_PREFIX=/home/alex/Documents/S8/autonomousRobots/autoRobots_ws/devel -DCMAKE_INSTALL_PREFIX=/home/alex/Documents/S8/autonomousRobots/autoRobots_ws/install -G Unix Makefiles

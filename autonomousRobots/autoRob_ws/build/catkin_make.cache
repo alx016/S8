@@ -1,0 +1,2 @@
+pendulum
+-DCATKIN_DEVEL_PREFIX=/home/alex/S8/autonomousRobots/autoRob_ws/devel -DCMAKE_INSTALL_PREFIX=/home/alex/S8/autonomousRobots/autoRob_ws/install -G Unix Makefiles
