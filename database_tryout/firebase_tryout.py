@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 
 # Configura las credenciales de Firebase
-cred = credentials.Certificate('/home/alex/S8/database_tryout/agrobot-6668a-firebase-adminsdk-tnt08-2ea5fec9e7.json')   #Ubicación del archivo de credenciales
+cred = credentials.Certificate('/home/alex/S8/database_tryout/firebase_key.json')   #Ubicación del archivo de credenciales
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://agrobot-6668a-default-rtdb.firebaseio.com/'
 })#URL de la página
@@ -40,6 +40,6 @@ for i in np.arange(init, max, step):
     print(clave, " : ", datos)
 
     # Simulación de retraso en sensores
-    time.sleep(5)
+    time.sleep(1)
     
 print("Datos enviados a Firebase.")
