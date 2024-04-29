@@ -1,0 +1,9 @@
+<launch>
+    <!-- Nodo de control del péndulo -->
+    <node name="monteCarlo_pendulumSimulator_wControl" pkg="pendulumControl" type="MC_PS_CC.py" output="screen"/>
+    <!-- <node name="pendulum_No_control_node" pkg="pendulumControl" type="pendulumNoControl.py" output="screen"/> -->
+
+    <!-- Lanzar rqt_multiplot -->
+    <node name="rqt_multiplot" pkg="rqt_multiplot" type="rqt_multiplot" output="screen">
+    </node>
+</launch>

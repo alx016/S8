@@ -1,0 +1,7 @@
+<launch>
+    <rosparam command="load" file="$(find usb_camera)/config/camera_param.yaml"/>
+    <param name ="/camera/deviceID" type="int" value="0" />
+    <node name="camera_node" pkg="usb_camera" type="usb_camera" output="screen">
+    </node>
+</launch>
+

@@ -1,0 +1,8 @@
+prefix=/home/alex/Documents/S8/autonomousRobots/autoRobots_ws/devel
+
+Name: pendulumControl
+Description: Description of pendulumControl
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

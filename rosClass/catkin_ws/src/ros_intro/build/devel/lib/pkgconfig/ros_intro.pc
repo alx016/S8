@@ -1,0 +1,8 @@
+prefix=/home/alex/Documents/S8/rosClass/catkin_ws/src/ros_intro/build/devel
+
+Name: ros_intro
+Description: Description of ros_intro
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

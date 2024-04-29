@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="map_joint" args="odomPose_x  odomPose_y  odomPose_z  odomPose_roll  odomPose_pitch  odomPose_yaw   map   odom"/>
+
+        <arg name="puzzlebot_sim_model" default="$(find slm_sim)/urdf/puzzlebot_jetson_ed_urdf.urdf"/>
+        
+        <param name="robot_description" command="cat $(arg puzzlebot_sim_model)" />
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="simulated_state_publisher" output="screen"/>
+        <node name="joint_state_publisher" pkg="slm_sim" type="localisation.py" output="screen"/>
+        <node name="cmd_vel_publisher" pkg="slm_sim" type="velocidad.py" output="screen"/>
+        <node name="odom_to_base_link" pkg="slm_sim" type="joint_state_pub.py" output="screen"/>
+
+        <arg name = "rvizconfig" default = "$(find slm_sim)/rviz/puzzlebot.rviz"/>
+
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> 
+        <arg name="plotconfig" default="$(find slm_sim)/multiplot/phase2.xml" />
+        <node name="pos_vel_phase_plot" pkg="rqt_multiplot" type="rqt_multiplot" args="--multiplot-config $(arg plotconfig)" />
+
+</launch>

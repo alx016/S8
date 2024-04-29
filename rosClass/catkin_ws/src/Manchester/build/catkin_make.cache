@@ -1,0 +1,2 @@
+slm_sim
+-DCATKIN_DEVEL_PREFIX=/home/carlos/Manchester/devel -DCMAKE_INSTALL_PREFIX=/home/carlos/Manchester/install -G Unix Makefiles

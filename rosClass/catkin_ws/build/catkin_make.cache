@@ -1,0 +1,2 @@
+Manchester/src/slm_sim:puzzlebot_sim:ros_intro:usb_camera
+-DCATKIN_DEVEL_PREFIX=/home/alex/Documents/S8/rosClass/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/alex/Documents/S8/rosClass/catkin_ws/install -G Unix Makefiles
