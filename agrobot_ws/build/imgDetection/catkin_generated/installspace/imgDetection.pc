@@ -1,0 +1,8 @@
+prefix=/home/alex/S8/agrobot_ws/install
+
+Name: imgDetection
+Description: Description of imgDetection
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
