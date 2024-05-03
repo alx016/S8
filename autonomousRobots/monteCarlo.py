@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Definir el número de pasos de tiempo
-num_pasos = 100
+num_pasos = 1000
 
 # Definir el número de simulaciones
-num_simulaciones = 5
+num_simulaciones = 50
 
 # Generar las simulaciones
 for i in range(num_simulaciones):
