@@ -1,8 +1,8 @@
-# Install script for directory: /home/alex/Documents/S8/rosClass/catkin_ws/src/puzzlebot_sim
+# Install script for directory: /home/al3x/S8/rosClass/catkin_ws/src/puzzlebot_sim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/alex/Documents/S8/rosClass/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/al3x/S8/rosClass/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/puzzlebot_sim/catkin_generated/installspace/puzzlebot_sim.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/build/puzzlebot_sim/catkin_generated/installspace/puzzlebot_sim.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/puzzlebot_sim/cmake" TYPE FILE FILES
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/puzzlebot_sim/catkin_generated/installspace/puzzlebot_simConfig.cmake"
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/puzzlebot_sim/catkin_generated/installspace/puzzlebot_simConfig-version.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/puzzlebot_sim/catkin_generated/installspace/puzzlebot_simConfig.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/puzzlebot_sim/catkin_generated/installspace/puzzlebot_simConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/puzzlebot_sim" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/src/puzzlebot_sim/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/puzzlebot_sim" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/src/puzzlebot_sim/package.xml")
 endif()
 

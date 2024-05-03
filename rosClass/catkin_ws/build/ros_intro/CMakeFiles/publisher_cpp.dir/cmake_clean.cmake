@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
+  "/home/al3x/S8/rosClass/catkin_ws/devel/lib/ros_intro/publisher_cpp"
+  "/home/al3x/S8/rosClass/catkin_ws/devel/lib/ros_intro/publisher_cpp.pdb"
   "CMakeFiles/publisher_cpp.dir/src/publisher.cpp.o"
-  "/home/alex/Documents/S8/rosClass/catkin_ws/devel/lib/ros_intro/publisher_cpp.pdb"
-  "/home/alex/Documents/S8/rosClass/catkin_ws/devel/lib/ros_intro/publisher_cpp"
 )
 
 # Per-language clean rules from dependency scanning.

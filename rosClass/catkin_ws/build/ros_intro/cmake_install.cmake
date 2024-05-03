@@ -1,8 +1,8 @@
-# Install script for directory: /home/alex/Documents/S8/rosClass/catkin_ws/src/ros_intro
+# Install script for directory: /home/al3x/S8/rosClass/catkin_ws/src/ros_intro
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/alex/Documents/S8/rosClass/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/al3x/S8/rosClass/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/ros_intro/catkin_generated/installspace/ros_intro.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/build/ros_intro/catkin_generated/installspace/ros_intro.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_intro/cmake" TYPE FILE FILES
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/ros_intro/catkin_generated/installspace/ros_introConfig.cmake"
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/ros_intro/catkin_generated/installspace/ros_introConfig-version.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/ros_intro/catkin_generated/installspace/ros_introConfig.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/ros_intro/catkin_generated/installspace/ros_introConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_intro" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/src/ros_intro/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_intro" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/src/ros_intro/package.xml")
 endif()
 

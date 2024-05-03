@@ -67,14 +67,14 @@ set(slm_sim_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(slm_sim_SOURCE_PREFIX /home/alex/Documents/S8/rosClass/catkin_ws/src/Manchester/src/slm_sim)
-  set(slm_sim_DEVEL_PREFIX /home/alex/Documents/S8/rosClass/catkin_ws/devel)
+  set(slm_sim_SOURCE_PREFIX /home/al3x/S8/rosClass/catkin_ws/src/Manchester/src/slm_sim)
+  set(slm_sim_DEVEL_PREFIX /home/al3x/S8/rosClass/catkin_ws/devel)
   set(slm_sim_INSTALL_PREFIX "")
   set(slm_sim_PREFIX ${slm_sim_DEVEL_PREFIX})
 else()
   set(slm_sim_SOURCE_PREFIX "")
   set(slm_sim_DEVEL_PREFIX "")
-  set(slm_sim_INSTALL_PREFIX /home/alex/Documents/S8/rosClass/catkin_ws/install)
+  set(slm_sim_INSTALL_PREFIX /home/al3x/S8/rosClass/catkin_ws/install)
   set(slm_sim_PREFIX ${slm_sim_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/alex/Documents/S8/rosClass/catkin_ws/install/lib;/home/alex/Documents/S8/rosClass/catkin_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/al3x/S8/rosClass/catkin_ws/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -211,7 +211,7 @@ foreach(depend ${depends})
   _unpack_libraries_with_build_configuration(slm_sim_LIBRARIES ${slm_sim_LIBRARIES})
 
   _list_append_unique(slm_sim_LIBRARY_DIRS ${${slm_sim_dep}_LIBRARY_DIRS})
-  list(APPEND slm_sim_EXPORTED_TARGETS ${${slm_sim_dep}_EXPORTED_TARGETS})
+  _list_append_deduplicate(slm_sim_EXPORTED_TARGETS ${${slm_sim_dep}_EXPORTED_TARGETS})
 endforeach()
 
 set(pkg_cfg_extras "")

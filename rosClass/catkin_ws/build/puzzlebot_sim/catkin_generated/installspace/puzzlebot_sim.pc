@@ -1,4 +1,4 @@
-prefix=/home/alex/Documents/S8/rosClass/catkin_ws/install
+prefix=/home/al3x/S8/rosClass/catkin_ws/install
 
 Name: puzzlebot_sim
 Description: Description of puzzlebot_sim

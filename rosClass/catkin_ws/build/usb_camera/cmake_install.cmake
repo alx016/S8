@@ -1,8 +1,8 @@
-# Install script for directory: /home/alex/Documents/S8/rosClass/catkin_ws/src/usb_camera
+# Install script for directory: /home/al3x/S8/rosClass/catkin_ws/src/usb_camera
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/alex/Documents/S8/rosClass/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/al3x/S8/rosClass/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/usb_camera/catkin_generated/installspace/usb_camera.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/build/usb_camera/catkin_generated/installspace/usb_camera.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/usb_camera/cmake" TYPE FILE FILES
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/usb_camera/catkin_generated/installspace/usb_cameraConfig.cmake"
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/usb_camera/catkin_generated/installspace/usb_cameraConfig-version.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/usb_camera/catkin_generated/installspace/usb_cameraConfig.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/usb_camera/catkin_generated/installspace/usb_cameraConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/usb_camera" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/src/usb_camera/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/usb_camera" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/src/usb_camera/package.xml")
 endif()
 

@@ -1,8 +1,8 @@
-# Install script for directory: /home/alex/Documents/S8/rosClass/catkin_ws/src/Manchester/src/slm_sim
+# Install script for directory: /home/al3x/S8/rosClass/catkin_ws/src/Manchester/src/slm_sim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/alex/Documents/S8/rosClass/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/al3x/S8/rosClass/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,41 +38,41 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_sim.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_sim.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/slm_sim/cmake" TYPE FILE FILES
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_simConfig.cmake"
-    "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_simConfig-version.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_simConfig.cmake"
+    "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_simConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/slm_sim" TYPE FILE FILES "/home/alex/Documents/S8/rosClass/catkin_ws/src/Manchester/src/slm_sim/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/slm_sim" TYPE FILE FILES "/home/al3x/S8/rosClass/catkin_ws/src/Manchester/src/slm_sim/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_sim.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/slm_sim.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/penduloNoL.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/penduloNoL.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/penduloSiL.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/penduloSiL.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/localisation.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/localisation.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/joint_state_pub.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/joint_state_pub.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/alex/Documents/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/velocidad.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/slm_sim" TYPE PROGRAM FILES "/home/al3x/S8/rosClass/catkin_ws/build/Manchester/src/slm_sim/catkin_generated/installspace/velocidad.py")
 endif()
 

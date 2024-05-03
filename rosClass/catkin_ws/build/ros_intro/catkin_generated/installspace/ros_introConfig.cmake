@@ -67,14 +67,14 @@ set(ros_intro_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(ros_intro_SOURCE_PREFIX /home/alex/Documents/S8/rosClass/catkin_ws/src/ros_intro)
-  set(ros_intro_DEVEL_PREFIX /home/alex/Documents/S8/rosClass/catkin_ws/devel)
+  set(ros_intro_SOURCE_PREFIX /home/al3x/S8/rosClass/catkin_ws/src/ros_intro)
+  set(ros_intro_DEVEL_PREFIX /home/al3x/S8/rosClass/catkin_ws/devel)
   set(ros_intro_INSTALL_PREFIX "")
   set(ros_intro_PREFIX ${ros_intro_DEVEL_PREFIX})
 else()
   set(ros_intro_SOURCE_PREFIX "")
   set(ros_intro_DEVEL_PREFIX "")
-  set(ros_intro_INSTALL_PREFIX /home/alex/Documents/S8/rosClass/catkin_ws/install)
+  set(ros_intro_INSTALL_PREFIX /home/al3x/S8/rosClass/catkin_ws/install)
   set(ros_intro_PREFIX ${ros_intro_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/alex/Documents/S8/rosClass/catkin_ws/install/lib;/home/alex/Documents/S8/rosClass/catkin_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/al3x/S8/rosClass/catkin_ws/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -211,7 +211,7 @@ foreach(depend ${depends})
   _unpack_libraries_with_build_configuration(ros_intro_LIBRARIES ${ros_intro_LIBRARIES})
 
   _list_append_unique(ros_intro_LIBRARY_DIRS ${${ros_intro_dep}_LIBRARY_DIRS})
-  list(APPEND ros_intro_EXPORTED_TARGETS ${${ros_intro_dep}_EXPORTED_TARGETS})
+  _list_append_deduplicate(ros_intro_EXPORTED_TARGETS ${${ros_intro_dep}_EXPORTED_TARGETS})
 endforeach()
 
 set(pkg_cfg_extras "")

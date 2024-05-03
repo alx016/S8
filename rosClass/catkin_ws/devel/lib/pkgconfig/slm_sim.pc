@@ -1,4 +1,4 @@
-prefix=/home/alex/Documents/S8/rosClass/catkin_ws/devel
+prefix=/home/al3x/S8/rosClass/catkin_ws/devel
 
 Name: slm_sim
 Description: Description of slm_sim

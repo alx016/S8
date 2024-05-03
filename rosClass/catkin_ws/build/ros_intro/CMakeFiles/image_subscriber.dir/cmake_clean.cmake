@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
+  "/home/al3x/S8/rosClass/catkin_ws/devel/lib/ros_intro/image_subscriber"
+  "/home/al3x/S8/rosClass/catkin_ws/devel/lib/ros_intro/image_subscriber.pdb"
   "CMakeFiles/image_subscriber.dir/src/image_subscriber.cpp.o"
-  "/home/alex/Documents/S8/rosClass/catkin_ws/devel/lib/ros_intro/image_subscriber.pdb"
-  "/home/alex/Documents/S8/rosClass/catkin_ws/devel/lib/ros_intro/image_subscriber"
 )
 
 # Per-language clean rules from dependency scanning.
