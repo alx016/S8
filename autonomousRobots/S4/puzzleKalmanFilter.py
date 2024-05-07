@@ -18,14 +18,14 @@ time = np.arange(init_time, final_time, dt) # Time vector
 
 # Parámetros del sistema
 q  = np.array([ [0, 0] ]).T     # Initial position (2 x 1)
-qd = np.array([ [5, 10] ]).T     # Desired position (2 x 1)
+qd = np.array([ [10, 10] ]).T     # Desired position (2 x 1)
 theta = np.pi/2                 # Initial orientation
 
 Kp = np.eye(2)                  # Proportional gain matrix (2 x 2)
 trajectory = [q]
 theta_values = []
 
-noise_scale = 0.001 # Adjust the noise scale as needed
+noise_scale = 0.0 # Adjust the noise scale as needed
 
 
 A = np.array([[1, 0, dt, 0, 0],
