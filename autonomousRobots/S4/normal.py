@@ -52,8 +52,8 @@ class Normal():
         ang = np.dot(self.phiT(), u) # (1 x 2) * (2 x 1) = (1 x 1)
 
         # Update position
-        self.q = self.q + v * self.dt                  # (2 x 1) + (2 x 1) * c
-        self.theta = self.theta + ang[0] * self.dt  # c + c * c
+        self.q = self.q + v * self.dt                   # (2 x 1) + (2 x 1) * c
+        self.theta = self.theta + ang[0] * self.dt      # c + c * c
 
         # Store trajectory
         # print(q[0][0], q[0][1])

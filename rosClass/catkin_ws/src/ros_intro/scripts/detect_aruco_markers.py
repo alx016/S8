@@ -38,12 +38,15 @@ marker_size = 600   #In Pixels
 def main_process(image):
 
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
     equalized_image = cv2.equalizeHist(gray_image)
+
+    clahe = cv2.createCLAHE(clipLimit=0.5, tileGridSize=(8, 8))
+    clahe_image = clahe.apply(gray_image)
+    image = clahe_image
 
     # (corners, ids, rejected) = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
     detector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
-    corners, ids, rejectedImgPoints = detector.detectMarkers(gray_image)
+    corners, ids, rejectedImgPoints = detector.detectMarkers(clahe_image)
 
     #Verify *at least* one ArUco marker was detected
     if len(corners) > 0:

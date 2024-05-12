@@ -1,0 +1,12 @@
+#Camera calibration paramters
+camera_intrinsic_matrix:
+  fx: 817.8873234694063 #Focal length in the x-direction (pixels)
+  fy: 817.1992235031144 #Focal length in the y-direction (pixels)
+  cx: 540.3112555403219 #Optical center in x-axis (image_center)
+  cy: 255.9866526170229 #Optical center in y-axis (image_center)
+distorsion_coefficients:
+  k1: -1.0441264885964572 #First-order radial distorsion coefficient
+  k2: 17.1907298416947 #Second-order radial distortion coefficient
+  p1: 0.008444887373800518 #First-order tangential distortion coefficient
+  p2: 0.011009568373383852 #Second-order tangential distortion coefficient
+  k3: -89.94706677307303 #Third-order radial distortion coefficient

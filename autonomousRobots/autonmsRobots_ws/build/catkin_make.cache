@@ -1,0 +1,2 @@
+puzzlebot
+-DCATKIN_DEVEL_PREFIX=/home/al3x/S8/autonomousRobots/autonmsRobots_ws/devel -DCMAKE_INSTALL_PREFIX=/home/al3x/S8/autonomousRobots/autonmsRobots_ws/install -G Unix Makefiles
