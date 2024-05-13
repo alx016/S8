@@ -1,40 +1,18 @@
-import rospy
 import numpy as np
-from std_msgs.msg import Float64, Float64MultiArray
 
-def m_callback(msg):
-    global M
-    M = np.array(msg.data).reshape((3, 2))  # Assuming M is a 3x3 matrix
-    # rospy.loginfo("Received M matrix:")
-    # rospy.loginfo(M)
+class Kalman():
+    def __init__(self, tao) -> None:
+        self.x_hat = np.array([ [0, 0, 0] ]).T
+        self.tao = tao
+        self.P = np.array ([ [0, 0, 0], [0, 0, 0], [0, 0, 0] ])
 
-def u_callback(msg):
-    global u
-    u = msg.data
+        self.Q = 800 * np.array ([ [1, 0, 0], [0, 1, 0], [0, 0, 1] ]) #noise covariance matrix (covarianza del sistema)
 
-def kalmanCalculation():
+        self.R =  0.000384 * np.array([ [1, 0, 0], [0, 1, 0], [0, 0, 1] ])#measurement noise covariance matrix (matriz de covarianza del ruido de mediciones)
 
-    tao = 0.001
-    x_hat = np.array([ [0, 0, 0] ]).T
+    def kalmanCalculation(self, x, M, u):
 
-    P = np.array ([ [0, 0, 0], [0, 0, 0], [0, 0, 0] ])
+        self.x_hat = self.x_hat + self.tao * (M @ u - self.P @ np.linalg.inv(self.R) @ (self.x_hat - x))
+        self.P = self.P + self.tao * (self.Q - self.P @ np.linalg.inv(self.R) @ self.P)                     #covarianza del modelo
 
-    Q = np.array ([ [1.5, 0, 0], [0, 1.5, 0], [0, 0, 1.5] ])
-
-    R =  0.05 * np.array([ [1, 0, 0], [0, 1, 0], [0, 0, 1] ])
-
-    x_hat = x_hat + tao * (M @ u - P @ np.linalg.inv(R) @ (x_hat - x))
-    P = P + tao * (Q - P @ np.linalg.inv(R) @ P)
-
-if __name__ == '__main__':
-    try:
-        rospy.init_node('/kalman')
-        rate = rospy.Rate(100)  # Publish rate of 10 Hz
-        
-        rospy.Subscriber("/M", Float64MultiArray, m_callback)
-        rospy.Subscriber("/u")
-        x_hat_pub = rospy.Publisher("/x_hat", Float64)
-
-
-    except rospy.ROSInterruptException:
-        pass
+        return self.x_hat

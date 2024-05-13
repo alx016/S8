@@ -1,14 +1,11 @@
-import rospy
 
+class Control():
+    def __init__(self, qd) -> None:
+        self.qd = qd
+        
+    def controlCalculation(self, q, D_inv):
+        e = self.qd -q 
 
-def controlCalculation():
-    
+        u = D_inv @ (0.1 * e)
 
-
-if __name__ == '__main__':
-    try:
-        rospy.init_node('/control')
-        rate = rospy.Rate(100)  # Publish rate of 10 Hz
-        controlCalculation()
-    except rospy.ROSInterruptException:
-        pass
+        return u, e

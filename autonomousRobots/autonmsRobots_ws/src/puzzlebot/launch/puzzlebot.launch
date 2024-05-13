@@ -1,0 +1,8 @@
+<launch>
+    <!-- Nodo de control del péndulo -->
+    <node name="puzzlebot" pkg="puzzlebot" type="simpleRobot.py" output="screen"/>
+    
+    <!-- rqt_multiplot -->
+    <node name="rqt_multiplot" pkg="rqt_multiplot" type="rqt_multiplot" output="screen">
+    </node>
+</launch>

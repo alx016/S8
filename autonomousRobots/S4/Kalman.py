@@ -14,7 +14,7 @@ tao = 0.001 #time diferential
 x = np.array([ [1, 1, 0] ]).T   #vector de estados (x, y, theta)
 u = np.array([ [0.1, 0.1] ]).T  #velocidades (wr, wl)
 
-qd = np.array([ [10.0, 15.0] ]).T #posicion deseada (x, y)
+qd = np.array([ [100.0, 150.0] ]).T #posicion deseada (x, y)
 
 Phi = np.array([ [r/d, -r/d] ])
 
@@ -39,17 +39,17 @@ for i in np.arange(0.001, 10, tao):
     M = np.array([ D[0],
                    D[1],
                    Phi[0] ])
-    print(M)
 
     #KALMAN FILTER 
     x_hat = x_hat + tao * (M @ u - P @ np.linalg.inv(R) @ (x_hat - x))
+    
     P = P + tao * (Q - P @ np.linalg.inv(R) @ P)
 
     q = np.array([ x[0], x[1]]) #posicion actual
 
     e = qd -q 
 
-    u = D_inv @ (0.1 * e)
+    # u = D_inv @ (0.1 * e)
 
     # Physical robot simulation 
 
@@ -63,7 +63,7 @@ for i in np.arange(0.001, 10, tao):
 out_df = pd.DataFrame(out, columns=["t", "x", "y", "theta", "xh", "yh", "th"])
 
 out_df.plot(x="x", y="y")
-out_df.plot(x="t", y="theta")
+# out_df.plot(x="t", y="theta")
 out_df.plot(x="t", y=["x", "xh"])
 
 plt.show()
