@@ -111,6 +111,14 @@ def main_process(image):
                 tvec = np.array(tvec)
             cv2.drawFrameAxes(image, cam_mtx, distCoeffs, rvec, tvec, 0.02)
 
+            rvec_degrees = np.degrees(rvec)
+            rvec_degrees = np.round(rvec_degrees).astype(int)
+
+
+            text = "R: {}, P: {}, Y: {}".format(rvec_degrees[0][0][0], rvec_degrees[0][0][1], rvec_degrees[0][0][2])
+            cv2.putText(image, str(text), (bottomRight[0], bottomRight[1] +15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, font_color, 2)
+            
+
     cv2.imshow("ArUco detection", image)
     cv2.waitKey(1)
 
@@ -145,21 +153,32 @@ if __name__=="__main__":
     arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[aruco_type])
     arucoParams = cv2.aruco.DetectorParameters_create()
 
-    filename = "src/usb_camera/config/calibration_params.yaml"
+    # filename = "src/usb_camera/config/calibration_params.yaml"
 
-    with open(filename, 'r') as file:
-        data = yaml.safe_load(file)
+    # with open(filename, 'r') as file:
+    #     data = yaml.safe_load(file)
 
-    fx = data['camera_intrinsic_matrix']['fx']
-    fy = data['camera_intrinsic_matrix']['fy']
-    cx = data['camera_intrinsic_matrix']['cx']
-    cy = data['camera_intrinsic_matrix']['cy']
+    # fx = data['camera_intrinsic_matrix']['fx']
+    # fy = data['camera_intrinsic_matrix']['fy']
+    # cx = data['camera_intrinsic_matrix']['cx']
+    # cy = data['camera_intrinsic_matrix']['cy']
 
-    k1 = data['distorsion_coefficients']['k1']
-    k2 = data['distorsion_coefficients']['k2']
-    p1 = data['distorsion_coefficients']['p1']
-    p2 = data['distorsion_coefficients']['p2']
-    k3 = data['distorsion_coefficients']['k3']
+    # k1 = data['distorsion_coefficients']['k1']
+    # k2 = data['distorsion_coefficients']['k2']
+    # p1 = data['distorsion_coefficients']['p1']
+    # p2 = data['distorsion_coefficients']['p2']
+    # k3 = data['distorsion_coefficients']['k3']
+
+    #Read camera calibration parameters from ROS parameter server
+    fx = rospy.get_param("/camera_intrinsic_matrix/fx")
+    fy = rospy.get_param("/camera_intrinsic_matrix/fy")
+    cx = rospy.get_param("/camera_intrinsic_matrix/cx")
+    cy = rospy.get_param("/camera_intrinsic_matrix/cy")
+    k1 = rospy.get_param("/distorsion_coefficients/k1")
+    k2 = rospy.get_param("/distorsion_coefficients/k2")
+    p1 = rospy.get_param("/distorsion_coefficients/p1")
+    p2 = rospy.get_param("/distorsion_coefficients/p2")
+    k3 = rospy.get_param("/distorsion_coefficients/k3")
 
     print("Camera Intrinsic Matrix: ")
     print("fx: {}".format(fx))
