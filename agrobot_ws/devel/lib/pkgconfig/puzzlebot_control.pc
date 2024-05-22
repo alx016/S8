@@ -1,0 +1,1 @@
+/home/puzzlebot/agrobot_ws/devel/.private/puzzlebot_control/lib/pkgconfig/puzzlebot_control.pc

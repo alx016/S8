@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!--Load mesh model -->
+    <!-- <arg name="urdf_model" value="$(find slm_sim)/urdf/pendulum.urdf"/>
+    <param name="robot_description" command="cat $(arg urdf_model)" /> -->
+
+    <!--Robot State Publisher -->
+    <!-- <node pkg="robot_state_publisher" type="robot_state_publisher" name="slm_state_pub" > -->
+    <!-- </node> -->
+
+    <!--Joint State Publisher -->
+    <!-- Descomenta solo uno de los siguientes nodos según tu necesidad -->
+
+    <!-- Si deseas lanzar penduloNoL.py -->
+    <node name="joint_state_publisher_gui" pkg="simu" type="puzzleControlMontecarlo.py" output="screen"/>
+
+    <!-- Si deseas lanzar penduloSiL.py -->
+    <!-- <node name="joint_state_publisher_gui_si_l" pkg="simu" type="penduloSiL.py" /> -->
+
+    <!-- Rviz -->
+    <!-- Descomenta este nodo si deseas lanzar Rviz -->
+    <!-- <arg name="rvizconfig" default="$(find slm_sim)/rviz/manipulator.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> -->
+
+    <!-- Multiplot -->
+    <arg name="plotconfig" default="$(find simu)/multiplot/montecarlo.xml" />
+    <node name="pos_vel_phase_plot" pkg="rqt_multiplot" type="rqt_multiplot" args="--multiplot-config $(arg plotconfig)" />
+    
+</launch>

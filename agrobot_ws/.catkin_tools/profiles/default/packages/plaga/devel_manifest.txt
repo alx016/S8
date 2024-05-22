@@ -1,0 +1,5 @@
+plaga
+/home/puzzlebot/agrobot_ws/devel/.private/plaga/cmake.lock /home/puzzlebot/agrobot_ws/devel/./cmake.lock
+/home/puzzlebot/agrobot_ws/devel/.private/plaga/lib/pkgconfig/plaga.pc /home/puzzlebot/agrobot_ws/devel/lib/pkgconfig/plaga.pc
+/home/puzzlebot/agrobot_ws/devel/.private/plaga/share/plaga/cmake/plagaConfig-version.cmake /home/puzzlebot/agrobot_ws/devel/share/plaga/cmake/plagaConfig-version.cmake
+/home/puzzlebot/agrobot_ws/devel/.private/plaga/share/plaga/cmake/plagaConfig.cmake /home/puzzlebot/agrobot_ws/devel/share/plaga/cmake/plagaConfig.cmake

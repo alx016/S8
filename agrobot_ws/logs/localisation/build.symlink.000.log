@@ -1,0 +1,3 @@
+Symlinking /home/puzzlebot/agrobot_ws/devel/lib/pkgconfig/localisation.pc
+Symlinking /home/puzzlebot/agrobot_ws/devel/share/localisation/cmake/localisationConfig-version.cmake
+Symlinking /home/puzzlebot/agrobot_ws/devel/share/localisation/cmake/localisationConfig.cmake

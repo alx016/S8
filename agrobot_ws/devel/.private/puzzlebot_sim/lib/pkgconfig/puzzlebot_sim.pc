@@ -1,0 +1,8 @@
+prefix=/home/puzzlebot/agrobot_ws/devel/.private/puzzlebot_sim
+
+Name: puzzlebot_sim
+Description: Description of puzzlebot_sim
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

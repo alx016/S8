@@ -1,0 +1,6 @@
+devel_space: /home/puzzlebot/agrobot_ws/devel
+install: false
+install_space: /home/puzzlebot/agrobot_ws/install
+profile: default
+source_space: /home/puzzlebot/agrobot_ws/src
+workspace: /home/puzzlebot/agrobot_ws

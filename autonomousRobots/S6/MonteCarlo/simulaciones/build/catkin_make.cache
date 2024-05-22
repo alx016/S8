@@ -1,0 +1,2 @@
+simu
+-DCATKIN_DEVEL_PREFIX=/home/carlos/simulaciones/devel -DCMAKE_INSTALL_PREFIX=/home/carlos/simulaciones/install -G Unix Makefiles

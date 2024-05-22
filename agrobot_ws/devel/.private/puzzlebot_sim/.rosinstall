@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/puzzlebot/agrobot_ws/devel/.private/puzzlebot_sim/setup.sh

@@ -1,2 +1,0 @@
-img_detection
--DCATKIN_DEVEL_PREFIX=/home/al3x/S8/agrobot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/al3x/S8/agrobot_ws/install -G Unix Makefiles

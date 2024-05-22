@@ -1,0 +1,1 @@
+/home/puzzlebot/agrobot_ws/devel/.private/rviz_simulation/lib/pkgconfig/rviz_simulation.pc

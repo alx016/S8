@@ -1,0 +1,8 @@
+prefix=/home/puzzlebot/agrobot_ws/devel/.private/puzzlebot_control
+
+Name: puzzlebot_control
+Description: Description of puzzlebot_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

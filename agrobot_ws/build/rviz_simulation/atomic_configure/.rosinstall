@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/puzzlebot/agrobot_ws/devel/.private/rviz_simulation/setup.sh
