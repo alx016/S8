@@ -11,7 +11,7 @@ import logging
 from heapq import heappop, heappush
 
 # Add the RRT* algorithm
-def rrt_star(start, goal, map_array, iterations=3500, delta_q= 2.0, goal_tolerance= 2.2, bias_factor=0.3):
+def rrt_star(start, goal, map_array, iterations=3500, delta_q= 1.8, goal_tolerance= 2.5, bias_factor=0.3):
     print("ENTRA A RRT_STAR")
     path = [start]
     parents = {start: None}
@@ -155,7 +155,10 @@ class MapSubscriber:
                 while (not goal_reached):
                     print("entrando al while")
                     # Convert the 1D occupancy grid data to a 2D numpy array
+
+                    #MOVER ESTAS LINEAS PARA AHORRAR TIEMPO
                     map_array = np.array(self.map_data.data).reshape((self.map_data.info.height, self.map_data.info.width))
+                    # map_array = remove_unknown_spaces(map_array)
                     thickened_map = self.thicken_obstacles(map_array, self.desired_thickness)
                     map_array = thickened_map
                     # Define start and goal nodes (you can set your own coordinates)
@@ -169,7 +172,7 @@ class MapSubscriber:
                     #print("Parents Dictionary:", parents)
                     distance_goal = euclidean_distance(path[-1], self.goal)
                     print(distance_goal)
-                    if (distance_goal < 2.2):
+                    if (distance_goal < 2.5):
                         print("consiguió el goal")
                         goal_reached = True
 
@@ -264,6 +267,24 @@ def is_collision_free(point, map_array):
 def nearest_neighbor(tree, point):
     distances = [euclidean_distance(node, point) for node in tree]
     return tree[np.argmin(distances)]
+
+def remove_unknown_spaces(grid_map):
+    """
+    This function removes all unknown spaces (-1) from the grid map.
+    
+    Parameters:
+    grid_map (list of lists): The 2D array representing the grid map.
+    
+    Returns:
+    list of lists: The grid map with all unknown spaces removed.
+    """
+    cleaned_map = []
+    
+    for row in grid_map:
+        cleaned_row = [cell for cell in row if cell != -1]
+        cleaned_map.append(cleaned_row)
+    
+    return cleaned_map
 
 if __name__ == '__main__':
 

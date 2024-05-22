@@ -13,7 +13,7 @@ class DifferentialRobot:
         rospy.init_node('differential_robot')
         self.rate = rospy.Rate(10)  # 10 Hz
         self.wheel_base = 0.1738  # Distancia entre las llantas (en metros)
-        self.wheel_radius = 0.0509 
+        self.wheel_radius = 0.0509  #radio de las llantas (m)
         self.wl_robot = 0.0
         self.wr_robot = 0.0
         self.prev = 0
