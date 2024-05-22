@@ -13,13 +13,13 @@ class DifferentialRobot:
         rospy.init_node('differential_robot')
         self.rate = rospy.Rate(10)  # 10 Hz
         self.wheel_base = 0.1738  # Distancia entre las llantas (en metros)
-        self.wheel_radius = 0.0509  #radio de las llantas (m)
+        self.wheel_radius = 0.0509 
         self.wl_robot = 0.0
         self.wr_robot = 0.0
         self.prev = 0
         self.pose = {'x': 0.0, 'y': 0.0, 'theta': 0.0}
 
-        self.odom_pub = rospy.Publisher('/odom', Odometry, queue_size=10)
+        self.odom_pub = rospy.Publisher('odom', Odometry, queue_size=10)
         
         rospy.Subscriber('/wl', Float32, self.wl_callback)
         rospy.Subscriber('/wr', Float32, self.wr_callback)

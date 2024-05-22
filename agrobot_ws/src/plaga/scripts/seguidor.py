@@ -15,7 +15,7 @@ class Kalman:
         self.B = np.zeros((3, 2))  # Matriz de control
         self.H = np.eye(3)  # Matriz de observación
         self.Q = np.eye(3)  #* 0.1  # Covarianza del ruido de proceso
-        self.R = np.eye(3) * 0.005  # Covarianza del ruido de medida
+        self.R = np.eye(3)  * 0.05  # Covarianza del ruido de medida  0.05 
         self.P = np.eye(3)  # Matriz de covarianza del error
 
     def predict(self, x, u):
@@ -92,8 +92,8 @@ class PathFollower:
         self.actual_pose = np.array([data.pose.pose.position.x, data.pose.pose.position.y, yaw])
 
     def follow_optimal_path(self):
-        threshold_linear_error = 0.4
-        threshold_rotational_error = 0.5
+        threshold_linear_error = 0.1
+        threshold_rotational_error = 0.4  # 0.4
 
         if self.optimal_path is None:
             rospy.logwarn("Optimal path data is missing.")
@@ -152,7 +152,7 @@ class PathFollower:
         self.velocity_command.linear.x = v_max_linear * np.tanh(4.0 * error[0])
 
     def calculate_rotational_velocity(self, error):
-        v_max_angular = 0.3
+        v_max_angular = 0.27
         self.velocity_command.angular.z = np.clip(0.8 * error[1], -v_max_angular, v_max_angular)
 
 if __name__ == '__main__':

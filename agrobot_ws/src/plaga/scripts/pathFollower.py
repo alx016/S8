@@ -19,7 +19,6 @@ class PathFollower:
         self.rate = rospy.Rate(10) 
         
         self.optimal_path = None            # Variable to store the optimal path
-        self.path_len = 0
         self.opt_path_receive = False       # Key variable, so that it only receives path once
         self.pathFollower_activationKey = False
         self.actual_pose = [0.0, 0.0, 0.0]  # Variable to store the actual position (x, y, theta)
@@ -49,11 +48,10 @@ class PathFollower:
         self.pathFollower_activationKey = data.data
 
     def path_callback(self, data):
-        for indice, pose_stamped in enumerate(data.poses):
+        for pose_stamped in data.poses:
             pose_stamped.pose.position.x = -pose_stamped.pose.position.x
             pose_stamped.pose.position.y = -pose_stamped.pose.position.y
         self.optimal_path = data
-        self.path_len = indice
 
         # print(self.optimal_path)
 
@@ -84,13 +82,17 @@ class PathFollower:
             rospy.logwarn("Optimal path data is missing.")
             
         # Loop through the optimal path and send velocity commands
-        i = 1
+        i = 0
         for pose_stamped in self.optimal_path.poses:
             xd = pose_stamped.pose.position.x           #desired x
             yd = pose_stamped.pose.position.y           #desired y
             thetad = self.estimate_theta(xd, yd)        #desired theta
             error = self.calculate_error(xd, yd, thetad)
-            print (f"{i}/{self.path_len+1}")
+            print (f"{i}")
+            # print("xd:", xd)
+            # print("yd:", yd)
+            # print("td:", thetad)
+
 
             while abs(error[0]) >= threshold_linear_error :
                 while abs(error[1]) >= threshold_rotational_error:
@@ -115,7 +117,10 @@ class PathFollower:
 
     def estimate_theta(self, xd, yd):
         # Estimate desired theta
-        return np.arctan2(yd - self.actual_pose[1], xd - self.actual_pose[0])
+        y = yd - self.actual_pose[1]
+        x = xd - self.actual_pose[0]
+        thetad = np.arctan2(y, x)
+        return thetad
 
     def calculate_error(self, xd, yd, thetad):
         # Calculate error in the current pose 

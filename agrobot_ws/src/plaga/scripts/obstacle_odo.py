@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
+import cv2
 import numpy as np
 from scipy.ndimage import convolve
 from nav_msgs.msg import OccupancyGrid, Path, Odometry
@@ -11,7 +12,88 @@ import logging
 from heapq import heappop, heappush
 
 # Add the RRT* algorithm
-def rrt_star(start, goal, map_array, iterations=3500, delta_q= 1.8, goal_tolerance= 2.5, bias_factor=0.3):
+# def rrt_star(start, goal, map_array, iterations=3500, delta_q= 1.8, goal_tolerance= 1.5, bias_factor=0.3):
+#     print("ENTRA A RRT_STAR")
+#     path = [start]
+#     parents = {start: None}
+
+#     for _ in range(iterations):
+#         # Randomly sample a point, biased towards less occupied areas
+#         if np.random.rand() < bias_factor:
+#             q_rand = sample_point_biased(map_array)
+#         else:
+#             q_rand = (np.random.rand() * map_array.shape[1], np.random.rand() * map_array.shape[0])
+
+#         q_near = nearest_neighbor(path, q_rand)
+
+#         q_new = new_point(q_near, q_rand, delta_q)
+
+#         if is_collision_free(q_new, map_array):
+#             path.append(q_new)
+#             parents[q_new] = q_near
+
+#         # Check if the goal is reached with tolerance
+#         distance_to_goal = euclidean_distance(path[-1], goal)
+#         if distance_to_goal < goal_tolerance:
+#             print("Goal Reached:", path[-1])
+#             break
+
+#     # Connect the last point in the path to the goal
+#     last_point = path[-1]
+#     goal_reached = new_point(last_point, goal, delta_q)
+
+#     if is_collision_free(goal_reached, map_array):
+#         path.append(goal_reached)
+#         parents[goal_reached] = last_point
+
+#     return path, parents
+def smooth_path(path, map_array):
+    smoothed_path = [path[0]]  # Comienza con el punto de inicio
+
+    i = 0
+    while i < len(path) - 1:
+        j = len(path) - 1
+        while j > i:
+            if is_collision_free_segment(smoothed_path[-1], path[j], map_array):
+                smoothed_path.append(path[j])
+                i = j
+                break
+            j -= 1
+        i += 1
+
+    return smoothed_path
+
+def is_collision_free_segment(p1, p2, map_array):
+    # Implementa un algoritmo de línea recta (como Bresenham) para verificar colisiones
+    x1, y1 = int(p1[0]), int(p1[1])
+    x2, y2 = int(p2[0]), int(p2[1])
+    for x, y in bresenham(x1, y1, x2, y2):
+        if map_array[y, x] == 1:  # Si hay un obstáculo en el camino
+            return False
+    return True
+
+def bresenham(x1, y1, x2, y2):
+    # Implementación del algoritmo de Bresenham para trazar una línea entre dos puntos
+    points = []
+    dx = abs(x2 - x1)
+    dy = abs(y2 - y1)
+    sx = 1 if x1 < x2 else -1
+    sy = 1 if y1 < y2 else -1
+    err = dx - dy
+    while True:
+        points.append((x1, y1))
+        if x1 == x2 and y1 == y2:
+            break
+        e2 = err * 2
+        if e2 > -dy:
+            err -= dy
+            x1 += sx
+        if e2 < dx:
+            err += dx
+            y1 += sy
+    return points
+
+def rrt_star(start, goal, map_array, iterations=3500, delta_q=3.8, goal_tolerance=1.5, bias_factor=0.3):
     print("ENTRA A RRT_STAR")
     path = [start]
     parents = {start: None}
@@ -45,7 +127,10 @@ def rrt_star(start, goal, map_array, iterations=3500, delta_q= 1.8, goal_toleran
         path.append(goal_reached)
         parents[goal_reached] = last_point
 
-    return path, parents
+    # Smooth the path
+    smoothed_path = smooth_path(path, map_array)
+
+    return smoothed_path, parents
 
 def sample_point_biased(map_array):
     # Create a probability distribution based on occupancy values
@@ -77,7 +162,7 @@ class MapSubscriber:
         self.map_data = None
         self.inverted_path = False
         self.path_generated = False     #Key so that when a path is generated it stays the same
-        self.desired_thickness = 4      #Map obstacle thickness
+        self.desired_thickness = 5      #Map obstacle thickness
         #self.path_pub_key = False
 
         self.map_sub = rospy.Subscriber('/map', OccupancyGrid, self.map_callback)
@@ -88,7 +173,7 @@ class MapSubscriber:
         #self.seguidor = rospy.Publisher('/seguidor_key', Bool, queue_size=2)
 
         self.start = (0, 0)
-        self.start = (self.start[0] + 60, self.start[1] + 60)   # Añadir 20 a ambas coordenadas de self.start
+        self.start = (self.start[0] + 61, self.start[1] + 61) #60   # Añadir 20 a ambas coordenadas de self.start
         self.goal = (0, 0)
 
         #Position adjusters
@@ -129,17 +214,32 @@ class MapSubscriber:
 
         self.goal = (data.pose.pose.position.x, data.pose.pose.position.y)
         
-        self.val_x = 85/(self.goal[0] + 1)
-        self.val_y = 75/(self.goal[1] + 1)
+        self.val_x = 75/(self.goal[0] + 1)
+        self.val_y = 73/(self.goal[1] + 1) #75
         self.goal = ((self.goal[0] + 1) * self.val_x, (self.goal[1] + 1) * self.val_y)
         # self.goal = ((self.goal[0] + 1), (self.goal[1] + 1))
 
+    # def thicken_obstacles(self, map_array, thickness):
+    #     # Define a kernel with the desired thickness
+    #     kernel = np.ones((2 * thickness + 1, 2 * thickness + 1), dtype=np.uint8)
+
+    #     # Convolve the map_array with the kernel to thicken the obstacles
+    #     thickened_map = convolve(map_array, kernel, mode='constant', cval=0)
+
+    #     # Ensure values are binary (obstacle or free space)
+    #     thickened_map = (thickened_map > 0).astype(np.uint8)
+
+    #     return thickened_map
+
+
     def thicken_obstacles(self, map_array, thickness):
-        # Define a kernel with the desired thickness
-        kernel = np.ones((2 * thickness + 1, 2 * thickness + 1), dtype=np.uint8)
+        # Define a circular kernel with the desired thickness
+        kernel_size = 2 * thickness + 1
+        kernel = np.zeros((kernel_size, kernel_size), dtype=np.uint8)
+        cv2.circle(kernel, (thickness, thickness), thickness, 1, -1)
 
         # Convolve the map_array with the kernel to thicken the obstacles
-        thickened_map = convolve(map_array, kernel, mode='constant', cval=0)
+        thickened_map = convolve(map_array, kernel, mode='reflect')
 
         # Ensure values are binary (obstacle or free space)
         thickened_map = (thickened_map > 0).astype(np.uint8)
@@ -155,10 +255,8 @@ class MapSubscriber:
                 while (not goal_reached):
                     print("entrando al while")
                     # Convert the 1D occupancy grid data to a 2D numpy array
-
-                    #MOVER ESTAS LINEAS PARA AHORRAR TIEMPO
                     map_array = np.array(self.map_data.data).reshape((self.map_data.info.height, self.map_data.info.width))
-                    # map_array = remove_unknown_spaces(map_array)
+                    self.path_log.info(map_array)
                     thickened_map = self.thicken_obstacles(map_array, self.desired_thickness)
                     map_array = thickened_map
                     # Define start and goal nodes (you can set your own coordinates)
@@ -168,11 +266,11 @@ class MapSubscriber:
                     # Generate RRT* path
                     path, parents = rrt_star(self.start, self.goal, map_array)
 
-                    # Print parents dictionary for debugging
+                    # Print parents dictionary for debugging Puzzlebot72
                     #print("Parents Dictionary:", parents)
                     distance_goal = euclidean_distance(path[-1], self.goal)
                     print(distance_goal)
-                    if (distance_goal < 2.5):
+                    if (distance_goal <1.5):
                         print("consiguió el goal")
                         goal_reached = True
 
@@ -267,24 +365,6 @@ def is_collision_free(point, map_array):
 def nearest_neighbor(tree, point):
     distances = [euclidean_distance(node, point) for node in tree]
     return tree[np.argmin(distances)]
-
-def remove_unknown_spaces(grid_map):
-    """
-    This function removes all unknown spaces (-1) from the grid map.
-    
-    Parameters:
-    grid_map (list of lists): The 2D array representing the grid map.
-    
-    Returns:
-    list of lists: The grid map with all unknown spaces removed.
-    """
-    cleaned_map = []
-    
-    for row in grid_map:
-        cleaned_row = [cell for cell in row if cell != -1]
-        cleaned_map.append(cleaned_row)
-    
-    return cleaned_map
 
 if __name__ == '__main__':
 
