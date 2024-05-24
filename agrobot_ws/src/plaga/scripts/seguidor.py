@@ -48,6 +48,7 @@ class Kalman:
 class PathFollower:
     def __init__(self):
         rospy.init_node('path_follower', anonymous=True)
+        rospy.loginfo("Path Follower Initialized")
 
         self.velocity_command = Twist()
         self.rate = rospy.Rate(10)
@@ -66,18 +67,18 @@ class PathFollower:
         self.velocity_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         rospy.Subscriber('/rrt_path', Path, self.path_callback)
         rospy.Subscriber('/odom', Odometry, self.odom_callback)
-        rospy.Subscriber('/pathFollower_activationKey', Bool, self.activationKey)
+        rospy.Subscriber('/seguidor_key', Bool, self.activationKey)
         rospy.wait_for_message("/odom", Odometry, timeout=30)
 
-    def activationKey(self, data):
-        self.pathFollower_activationKey = data.data
+    def activationKey(self, msg):
+        self.pathFollower_activationKey = msg.data
 
     def path_callback(self, data):
         for pose_stamped in data.poses:
             pose_stamped.pose.position.x = -pose_stamped.pose.position.x
             pose_stamped.pose.position.y = -pose_stamped.pose.position.y
         self.optimal_path = data
-        if not self.opt_path_receive:
+        if not self.opt_path_receive and self.pathFollower_activationKey:
             self.follow_optimal_path()
             self.opt_path_receive = True
 
@@ -107,7 +108,7 @@ class PathFollower:
 
             while True:
                 error = self.calculate_error(xd, yd, thetad)
-                print(error)
+                # print(error)
                 if abs(error[1]) >= threshold_rotational_error:
                     self.calculate_rotational_velocity(error)
                     self.velocity_pub.publish(self.velocity_command)

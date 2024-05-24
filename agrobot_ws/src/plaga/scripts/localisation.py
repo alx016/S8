@@ -19,7 +19,7 @@ class DifferentialRobot:
         self.prev = 0
         self.pose = {'x': 0.0, 'y': 0.0, 'theta': 0.0}
 
-        self.odom_pub = rospy.Publisher('odom', Odometry, queue_size=10)
+        self.odom_pub = rospy.Publisher('/odom', Odometry, queue_size=10)
         
         rospy.Subscriber('/wl', Float32, self.wl_callback)
         rospy.Subscriber('/wr', Float32, self.wr_callback)

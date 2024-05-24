@@ -9,8 +9,10 @@ from std_srvs.srv import Empty
 
 class ObstacleAvoidance:
     def __init__(self):
-        self.count1, self.count2 = 0, 0
-        self.key = True
+
+        self.obstacleAvoidance_key = True
+        self.path_key_msg = Bool()
+        
         self.msg = Twist()
         self.msg.linear.x = 0
         self.msg.linear.y = 0
@@ -28,9 +30,10 @@ class ObstacleAvoidance:
 
         # Publisher for velocity commands
         self.pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
+        self.path_key = rospy.Publisher("/path_key", Bool, queue_size=10)
 
         # Subscriber for key data
-        rospy.Subscriber('/key', Bool, self.key_callback)
+        rospy.Subscriber('/obstacleAvoidance_key', Bool, self.key_callback)
 
         # Subscriber for LiDAR data
         rospy.sleep(5)
@@ -38,14 +41,17 @@ class ObstacleAvoidance:
 
         rospy.spin()
 
-    def key_callback(self, data):
-        self.key = data
+    #Activation Key
+    def key_callback(self, msg):
+        self.obstacleAvoidance_key = msg.data
 
     def stop(self):
         self.msg.linear.x = 0
         self.msg.linear.y = 0
         self.msg.angular.z = 0
-        self.pub.publish(self.msg)
+
+        self.path_key_msg.data = True
+        self.path_key.publish(self.path_key_msg)
 
     def scan(self, data):
         #rospy.loginfo("Start of scan callback")
@@ -64,7 +70,7 @@ class ObstacleAvoidance:
         vel_ang = 0.28
         kp = 0.01
 
-        if self.key == True:
+        if self.obstacleAvoidance_key:
             # rospy.loginfo("ENTRE")
             # rospy.loginfo("forward_safe_distance")
             # rospy.loginfo(forward_safe_distance)
@@ -90,10 +96,10 @@ class ObstacleAvoidance:
                 #y_vel = 1
                 # rospy.loginfo(y_vel)
                 if y_vel > 0.10:
-                    rospy.loginfo("if 1")
+                    # rospy.loginfo("if 1")
                     y_vel = 0.10
                 if y_vel < -0.10:
-                    rospy.loginfo("if 2")
+                    # rospy.loginfo("if 2")
                     y_vel = -0.10
                 self.msg.linear.y = 0
                 self.msg.linear.x = vel_lin
@@ -102,8 +108,6 @@ class ObstacleAvoidance:
                 self.rate.sleep()
         else:
             self.stop()
-            self.msg.linear.x = 0
-            self.msg.angular.z = 0
             # rospy.loginfo("Stop obstacle avoidance")
 
         self.pub.publish(self.msg)
