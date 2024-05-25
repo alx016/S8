@@ -66,7 +66,7 @@ class ObstacleAvoidance:
         #rospy.loginfo("right: {}".format(right_safe_distance))
 
         dist = 0.30
-        vel_lin = 0.08
+        vel_lin = 0.06
         vel_ang = 0.28
         kp = 0.01
 

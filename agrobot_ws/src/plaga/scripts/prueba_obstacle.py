@@ -251,7 +251,7 @@ class MapSubscriber:
         plt.title('RRT* Path Planning')
         plt.xlabel('X-axis')
         plt.ylabel('Y-axis')
-        plt.savefig('occupancy_grid_map_rrt_star2.png')
+        plt.savefig('occupancy_grid_map_rrt_star4.png')
         rospy.loginfo('Image saved as occupancy_grid_map_rrt_star2.png')
 
 def new_point(q_near, q_rand, delta_q):

@@ -1,12 +1,35 @@
 #!/usr/bin/env python3
 import rospy
-from std_msgs.msg import Int32
+from std_msgs.msg import Int32, Header, Bool
 import cv2
 import time
 import sys
 import numpy as np
 from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge, CvBridgeError
+from nav_msgs.msg import Odometry
+
+from visualization_msgs.msg import Marker, MarkerArray
+
+INPUT_WIDTH = 640
+INPUT_HEIGHT = 640
+NMS_THRESHOLD = 0.4
+SCORE_THRESHOLD = 0.4
+CONFIDENCE_THRESHOLD = 0.5
+
+ID_FOTO = 0
+capture = Image()
+bridge = CvBridge()
+
+colors = [(255, 255, 0), (0, 255, 0), (0, 255, 255), (255, 0, 0)]
+
+is_cuda = len(sys.argv) > 1 and sys.argv[1] == "cuda"
+
+
+#start = time.time_ns()
+frame_count = 0
+total_frames = 0
+fps = -1
 
 def build_model(is_cuda):
     #print("CUDA COOL 1")
@@ -18,15 +41,7 @@ def build_model(is_cuda):
     #print("CUDA COOL 3")
     return net
 
-INPUT_WIDTH = 640
-INPUT_HEIGHT = 640
-SCORE_THRESHOLD = 0.2
-NMS_THRESHOLD = 0.4
-CONFIDENCE_THRESHOLD = 0.4
-
-ID_FOTO = 0
-capture = Image()
-bridge = CvBridge()
+net = build_model(is_cuda)
 
 def detect(image, net):
     blob = cv2.dnn.blobFromImage(image, 1/255.0, (INPUT_WIDTH, INPUT_HEIGHT), swapRB=True, crop=False)
@@ -60,12 +75,12 @@ def wrap_detection(input_image, output_data):
     for r in range(rows):
         row = output_data[r]
         confidence = row[4]
-        if confidence >= 0.4:
+        if confidence >= CONFIDENCE_THRESHOLD:
 
             classes_scores = row[5:]
             _, _, _, max_indx = cv2.minMaxLoc(classes_scores)
             class_id = max_indx[1]
-            if (classes_scores[class_id] > .25):
+            if (classes_scores[class_id] > SCORE_THRESHOLD):
 
                 confidences.append(confidence)
 
@@ -79,7 +94,7 @@ def wrap_detection(input_image, output_data):
                 box = np.array([left, top, width, height])
                 boxes.append(box)
 
-    indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.25, 0.45) 
+    indexes = cv2.dnn.NMSBoxes(boxes, confidences, SCORE_THRESHOLD, CONFIDENCE_THRESHOLD) 
 
     result_class_ids = []
     result_confidences = []
@@ -100,26 +115,68 @@ def format_yolov5(frame):
     result[0:row, 0:col] = frame
     return result
 
+def odom_callback(msg):
+    global pos
+    pos_x = msg.pose.pose.position.x
+    pos_y = msg.pose.pose.position.y
 
-colors = [(255, 255, 0), (0, 255, 0), (0, 255, 255), (255, 0, 0)]
+    # pos_x = np.random.randint(1, 10)
+    # pos_y = np.random.randint(1, 10)
+    
+    pos =  (pos_x, pos_y)
 
-is_cuda = len(sys.argv) > 1 and sys.argv[1] == "cuda"
+def create_marker(marker_id, x, y):
+    marker = Marker()
+    marker.header = Header()
+    marker.header.frame_id = "map"     #desired frame
+    marker.header.stamp = rospy.Time.now()
+    marker.ns = "marker_array"
+    marker.id = marker_id
+    marker.type = Marker.SPHERE
+    marker.action = Marker.ADD
+    marker.pose.position.x = -x
+    marker.pose.position.y = -y
+    marker.pose.position.z = 0
+    marker.pose.orientation.x = 0.0
+    marker.pose.orientation.y = 0.0
+    marker.pose.orientation.z = 0.0
+    marker.pose.orientation.w = 1.0
+    marker.scale.x = 0.1
+    marker.scale.y = 0.1
+    marker.scale.z = 0.1
 
-net = build_model(is_cuda)
+    marker.color.a = 1.0
+    marker.color.r = 1.0
+    marker.color.g = 0.0
+    marker.color.b = 0.0
 
+    return marker
 
-#start = time.time_ns()
-frame_count = 0
-total_frames = 0
-fps = -1
+def key_callback( msg):
+    global obstacleAvoidance_key
+    obstacleAvoidance_key = msg.data
 
 if __name__ == '__main__':
     rospy.init_node('objectIdentifier')
+    print("Object Identifier Initialized")
+
+    objectIdentifier_key = True
+
     rospy.Subscriber("/img", Image, callback)
+    rospy.Subscriber("/odom", Odometry, odom_callback)
+    rospy.Subscriber('/objectIdentifier_key', Bool, key_callback)
+
     pub = rospy.Publisher ('/signals', Int32, queue_size=10)
+    markerArray_pub = rospy.Publisher('/marker_array_topic', Marker, queue_size=10)
+
+
     rate=rospy.Rate(10)
-    while True: 
+
+    markerId = 0 
+    
+    while (not rospy.is_shutdown()) and (objectIdentifier_key): 
         try:       
+            marker_array = MarkerArray()
             class_ids = []
             confidences =[]
             box=[]
@@ -130,43 +187,37 @@ if __name__ == '__main__':
             inputImage = format_yolov5(frame)
             outs = detect(inputImage, net)
         
-
             class_ids, confidences, boxes = wrap_detection(inputImage, outs[0])
         
-
             frame_count += 1
             total_frames += 1
             if len(class_ids)> 0: 
                 for (classid, confidence, box) in zip(class_ids, confidences, boxes):
-                    #print (classid)
                     color = colors[int(classid) % len(colors)]
                     cv2.rectangle(frame, box, color, 2)
                     cv2.rectangle(frame, (box[0], box[1] - 20), (box[0] + box[2], box[1]), color, -1)
                     cv2.putText(frame, class_list[classid], (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, .5, (0,0,0))
                     ID_FOTO = class_list[classid]
                     print(class_list[classid])# cambie ID_FOTO
-
-        #if frame_count >= 30:
-        #   end = time.time_ns()
-        #  fps = 1000000000 * frame_count / (end - start)
-        # frame_count = 0
-            #start = time.time_ns()
+                    print
+                marker = create_marker(markerId, pos[0], pos[1])
+                markerArray_pub.publish(marker)
+                # marker_array.markers.append(marker)
+                markerId += 1
+                rospy.sleep(5)
         
             if fps > 0:
                 fps_label = "FPS: %.2f" % fps
                 cv2.putText(frame, fps_label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-    
-            
-
-            cv2.imshow("output", frame)
+            # cv2.imshow("output", frame)
 
             pub.publish(classid)
             rospy.sleep(0.1)
     
-        
             if cv2.waitKey(1) > -1:
                 print("finished by user")
                 break
         except CvBridgeError as e:
-            print(e)
+            pass
+            # print(e)

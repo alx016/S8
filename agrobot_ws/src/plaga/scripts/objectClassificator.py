@@ -145,7 +145,8 @@ if __name__ == '__main__':
     # Get the parameters
     #model = rospy.get_param("model/path", default = "./Model/bestV5-25e.onnx")
     #class_list = rospy.get_param("classes/list", default = ["Fanta", "Pepsi", "Seven"])
-    model = rospy.get_param("model/path", default = "/home/puzzlebot/agrobot_ws/src/plaga/plantas.onnx")
+    #model = rospy.get_param("model/path", default = "/home/puzzlebot/agrobot_ws/src/plaga/plantas.onnx")
+    model = rospy.get_param("model/path", default = "/home/puzzlebot/agrobot_ws/src/plaga/chido.onnx")
     class_list = rospy.get_param("classes/list", default = ['Beans_Angular_LeafSpot', 'Beans_Rust', 'Strawberry_Angular_LeafSpot', 'Strawberry_Anthracnose_Fruit_Rot', 'Strawberry_Blossom_Blight', 'Strawberry_Gray_Mold', 'Straberry_Leaf_Spot', 'Straberry_Powdery_Mildew_Fruit', 'Straberry_Powdery_Mildew_Leaf', 'Tomato_Blight', 'Tomato_Leaf_Mold','Tomato_Spider_Mites'])
     conf = rospy.get_param("confidence/value", default = 0.01)
     cuda = rospy.get_param("isCuda/value", default = True)
